@@ -1,0 +1,58 @@
+{
+  "name": "node-checkr",
+  "version": "0.0.1",
+  "description": "API wrapper for checkr.io",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon src/app.js --exec babel-node",
+    "build": "rm -fR build/; babel src/ -d build/; cp src/constants/*.json build/constants/",
+    "start": "node --require 'babel-polyfill' build/app.js",
+    "lint": "eslint src/",
+    "test": "NODE_ENV=test cross-env nyc mocha ./src/tests/*.test.js"
+  },
+  "author": "Francisco Sales",
+  "dependencies": {
+
+
+
+
+
+
+
+
+
+
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-istanbul": "^3.0.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "cross-env": "^4.0.0",
+    "eslint": "^3.10.2",
+    "eslint-config-esnext": "^1.6.0",
+    "eslint-config-recommended": "^1.5.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "http-status": "^1.0.1",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.0.0",
+    "supertest": "^3.0.0"
+  },
+  "nyc": {
+    "include": [
+      "src/*.js"
+    ],
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
+}
