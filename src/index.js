@@ -8,6 +8,7 @@
  * ============================================================ */
 
 import candidates from './candidates';
+import reports from './reports';
 
 class NodeCheckr {
   constructor(API_KEY) {
@@ -22,6 +23,7 @@ class NodeCheckr {
       verbose: false
     };
     this.Candidates = candidates(this.options);
+    this.Reports = reports(this.options);
   }
 
 
