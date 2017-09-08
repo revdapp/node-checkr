@@ -11,15 +11,30 @@ import Joi from 'joi';
 import axios from 'axios';
 import handleError from './handleError';
 
-const reports = options => {
+const packages = options => {
   return {
+    list: async () => {
+      try {
+        const res = await axios({
+          method: 'get',
+          url: `${options.baseUrl}/${options.apiVersion}/packages`,
+          auth: {
+            username: options.apiKey,
+            password: ''
+          }
+        });
+        return res.data;
+      } catch (error) {
+        handleError(error);
+      }
+    },
     retrieve: async id => {
       const alphaRegex = /^[a-z0-9]+/i;
       if (alphaRegex.test(id)) {
         try {
           const res = await axios({
             method: 'get',
-            url: `${options.baseUrl}/${options.apiVersion}/reports/${id}`,
+            url: `${options.baseUrl}/${options.apiVersion}/packages/${id}`,
             auth: {
               username: options.apiKey,
               password: ''
@@ -34,35 +49,11 @@ const reports = options => {
         return;
       }
     },
-    create: async (pckage, id) => {
-      const alphaRegex = /^[a-z0-9]+/i;
-      if (alphaRegex.test(pckage) && alphaRegex.test(id)) {
-        try {
-          const res = await axios({
-            method: 'post',
-            url: `${options.baseUrl}/${options.apiVersion}/reports`,
-            data: {
-              candidate_id: id,
-              package: pckage
-            },
-            auth: {
-              username: options.apiKey,
-              password: ''
-            }
-          });
-          return res.data;
-        } catch (error) {
-          handleError(error);
-        }
-      } else {
-        throw new Error('Invalid ID or package');
-        return;
-      }
-    },
-    update: async (id, params) => {
+    create: async params => {
       const schema = Joi.object().keys({
-        package: Joi.string().alphanum(),
-        adjudication: Joi.string().alphanum()
+        name: Joi.string().alphanum().min(3).required(),
+        slug: Joi.string().alphanum().min(3).required(),
+        screenings: Joi.array().required()
       });
       const validation = Joi.validate(params, schema);
       if (validation.error !== null) {
@@ -71,7 +62,7 @@ const reports = options => {
       try {
         const res = await axios({
           method: 'post',
-          url: `${options.baseUrl}/${options.apiVersion}/reports/${id}`,
+          url: `${options.baseUrl}/${options.apiVersion}/packages`,
           data: params,
           auth: {
             username: options.apiKey,
@@ -86,4 +77,4 @@ const reports = options => {
   };
 };
 
-export default reports;
+export default packages;
