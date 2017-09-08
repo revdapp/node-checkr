@@ -1,3 +1,12 @@
+/* ============================================================
+ * node.checkr
+ * https://github.com/franciscofsales/node-checkr
+ *
+ * ============================================================
+ * Copyright 2014-2017, Francisco Sales
+ * Released under the MIT License
+ * ============================================================ */
+
 import Checkr from '../src';
 
 const checkr = new Checkr('test');
