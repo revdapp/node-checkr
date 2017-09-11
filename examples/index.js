@@ -6,15 +6,17 @@
  * Copyright 2014-2017, Francisco Sales
  * Released under the MIT License
  * ============================================================ */
-
+import Dotenv from 'dotenv';
+const dotenv = Dotenv.config();
 import Checkr from '../src';
 
-const checkr = new Checkr('test');
+const key = process.env.API_KEY;
+const checkr = new Checkr(key);
 
 checkr.Candidates
   .createCandidate({
     first_name: 'Francisco',
     last_name: 'Sales',
   })
-  .then(res => {})
+  .then(res => console.log(res))
   .catch(err => console.log(err));
