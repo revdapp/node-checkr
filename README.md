@@ -32,7 +32,7 @@ const Checkr = new checkr(API_KEY);
 Candidates
 -----------
 
-##### `createCandidate(params)`
+##### `create(params)`
 
 
 Creates a candidate do run screenings on. Required parameters might change with the screening to be run. Check the official docs for details.
@@ -54,7 +54,7 @@ Supported params:
 
 ```javascript
   checkr.Candidates
-    .createCandidate({
+    .create({
       first_name: 'John',
       last_name: 'Doe',
     })
@@ -62,13 +62,13 @@ Supported params:
     .catch(err => console.log(err));
 ```
 
-##### `updateCandidate(id, params)`
+##### `update(id, params)`
 
 Updates a candidate's information, given the `id`. Same params as `createCandidate`.
 
 ```javascript
   checkr.Candidates
-    .updateCandidate('ABC123', {
+    .update('ABC123', {
       first_name: 'John',
       last_name: 'Doe',
     })
@@ -227,6 +227,50 @@ Supported params:
 
 Reports
 -----------
+##### `retrieve(id)`
+
+Retrieves a particular report, given the `id`.
+```javascript
+  checkr.Reports
+    .retrieve('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `create(package_slug, candidate_id)`
+
+
+Creates a report for the candidate specified, using the package.
+
+
+```javascript
+  checkr.Reports
+    .create('my-package', 'ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `update(id, params)`
+
+
+Updates a report.
+
+Supported params:
+
+|         Param         |      Type     |
+|:---------------------:|:-------------:|
+| package            | string        |           
+| adjudication           | string        |       
+Either package or adjudication is required.          
+
+```javascript
+  checkr.Packages
+    .update('ABC123', {
+      package: 'my-new-package'
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
 
 
 

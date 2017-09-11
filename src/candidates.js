@@ -13,7 +13,7 @@ import handleError from './handleError';
 
 const candidates = options => {
   return {
-    createCandidate: async params => {
+    create: async params => {
       const schema = Joi.object().keys({
         first_name: Joi.string().alphanum().min(3).required(),
         middle_name: Joi.string().alphanum(),
@@ -54,7 +54,7 @@ const candidates = options => {
       }
     },
 
-    updateCandidate: async (id, params) => {
+    update: async (id, params) => {
       const schema = Joi.object().keys({
         first_name: Joi.string().alphanum().min(3).required(),
         middle_name: Joi.string().alphanum(),
