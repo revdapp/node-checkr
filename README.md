@@ -20,10 +20,17 @@ import checkr from 'node-checkr';
 const Checkr = new checkr(API_KEY);
 ```
 
+### Objects
+- [Candidates](#candidates)
+- [Screenings](#screenings)
+- [Packages](#packages)
+- [Reports](#reports)
 
-### Node-Checkr Objects
 
-#### Candidates
+
+
+Candidates
+-----------
 
 ##### `createCandidate(params)`
 
@@ -57,7 +64,7 @@ Supported params:
 
 ##### `updateCandidate(id, params)`
 
-Updates a candidate's information, given the `id`. Same params as [`createCandidate(params)`](#createCandidate).
+Updates a candidate's information, given the `id`. Same params as `createCandidate`.
 
 ```javascript
   checkr.Candidates
@@ -68,6 +75,161 @@ Updates a candidate's information, given the `id`. Same params as [`createCandid
     .then(res => console.log(res))
     .catch(err => console.log(err));
 ```
+
+Screenings
+-----------
+
+##### `ssn_trace(id)`
+
+Retrieves an existing SSN trace.
+
+```javascript
+  checkr.Screenings
+    .ssn_trace('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `sex_offender(id)`
+
+Retrieves an existing Sex Offender search.
+
+```javascript
+  checkr.Screenings
+    .sex_offender('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `global_watchlist(id)`
+
+Retrieves an existing global watchlist search.
+
+```javascript
+  checkr.Screenings
+    .global_watchlist('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `national_criminal(id)`
+
+Retrieves an existing national criminal search.
+
+```javascript
+  checkr.Screenings
+    .national_criminal('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `county_criminal(id)`
+
+Retrieves an existing county criminal search.
+
+```javascript
+  checkr.Screenings
+    .county_criminal('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `state_criminal(id)`
+
+Retrieves an existing state criminal search.
+
+```javascript
+  checkr.Screenings
+    .state_criminal('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `motor_vehicle(id)`
+
+Retrieves an existing Motor Vehicle Report.
+
+```javascript
+  checkr.Screenings
+    .motor_vehicle('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `education_verifications(id)`
+
+Retrieves an existing education verification.
+
+```javascript
+  checkr.Screenings
+    .education_verifications('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `employment_verifications(id)`
+
+Retrieves an existing employment verification.
+
+```javascript
+  checkr.Screenings
+    .employment_verifications('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+Packages
+-----------
+
+##### `list()`
+
+Returns the list of packages available on your account.
+```javascript
+  checkr.Packages
+    .list()
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `retrieve(id)`
+
+Retrieves a particular package, given the `id`.
+```javascript
+  checkr.Packages
+    .retrieve('ABC123')
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `create(params)`
+
+
+Creates a package. Required parameters might change, check the official docs for details.
+
+Supported params:
+
+|         Param         |      Type     | Required |
+|:---------------------:|:-------------:|:--------:|
+| name            | string        |     x    |            
+| slug           | string        |      x    |               
+| screenings             | Array(screenings)        |     x    ||
+
+```javascript
+  checkr.Packages
+    .create({
+      name: 'My Package',
+      slug: 'my-package',
+      screenings: []
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+Reports
+-----------
+
+
+
 
 ### License
 
