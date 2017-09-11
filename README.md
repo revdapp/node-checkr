@@ -1,6 +1,8 @@
 node-checkr
 =========
 
+**Note: This client is in alpha stage**
+
 Node Checkr is an unofficial, promise-based client for interacting with the [Checkr.io](https://checkr.com/) platform.
 
 Documentation for the Checkr API can be found [here](https://docs.checkr.com/).
