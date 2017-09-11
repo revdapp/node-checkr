@@ -10,6 +10,7 @@
 import candidates from './candidates';
 import reports from './reports';
 import packages from './packages';
+import screenings from './screenings';
 
 class NodeCheckr {
   constructor(API_KEY) {
@@ -26,6 +27,7 @@ class NodeCheckr {
     this.Candidates = candidates(this.options);
     this.Reports = reports(this.options);
     this.Packages = packages(this.options);
+    this.Screenings = screenings(this.options);
   }
 
 
