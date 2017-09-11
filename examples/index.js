@@ -14,7 +14,7 @@ const key = process.env.API_KEY;
 const checkr = new Checkr(key);
 
 checkr.Candidates
-  .createCandidate({
+  .create({
     first_name: 'Francisco',
     last_name: 'Sales',
   })
