@@ -8,7 +8,7 @@
     "build": "rm -fR build/; babel src/ -d build/",
     "start": "node --require 'babel-polyfill' build/index.js",
     "lint": "eslint src/",
-    "test": "NODE_ENV=test cross-env nyc mocha ./src/tests/*.test.js",
+    "test": "NODE_ENV=test cross-env nyc mocha ./tests/*.test.js",
     "prepublish": "npm run build"
   },
   "repository": "https://github.com/franciscofsales/node-checkr.git",
@@ -25,7 +25,7 @@
     "babel-preset-latest": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.18.0",
-    "chai": "^3.5.0",
+    "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "cross-env": "^4.0.0",
     "eslint": "^3.10.2",

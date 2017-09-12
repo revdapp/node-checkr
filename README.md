@@ -46,7 +46,7 @@ Supported params:
 | first_name            | string        |     x    |               |
 | middle_name           | string        |          |               |
 | last_name             | string        |     x    |               |
-| email                 | string        |          |               |
+| email                 | string        |     x    |               |
 | phone                 | alpha-numeric |          |               |
 | zipcode               | alpha-numeric |          |               |
 | dob                   | alpha-numeric |          | date of birth |
@@ -58,9 +58,10 @@ Supported params:
   checkr.Candidates
     .create({
       first_name: 'John',
+      email: 'jdoe@mail.com',
       last_name: 'Doe',
     })
-    .then(res => console.log(res))
+    .then(candidate => console.log(candidate))
     .catch(err => console.log(err));
 ```
 

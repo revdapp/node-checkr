@@ -13,10 +13,25 @@ import Checkr from '../src';
 const key = process.env.API_KEY;
 const checkr = new Checkr(key);
 
+let candidate_id = null;
+
 checkr.Candidates
   .create({
     first_name: 'Francisco',
-    last_name: 'Sales',
+    email: 'fsalesdev@gmail.com',
+    last_name: 'Sales'
   })
-  .then(res => console.log(res))
+  .then(res => {
+    candidate_id = res.id;
+    checkr.Candidates
+      .update(candidate_id, {
+        first_name: 'Francisco',
+        email: 'fsales@gmail.com',
+        last_name: 'Sales'
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  })
   .catch(err => console.log(err));

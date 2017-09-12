@@ -5,7 +5,7 @@ const handleError = error => {
       Err = new Error('Invalid Authentication. Check your API key');
       break;
   }
-  throw Err;
+  return Err;
 };
 
 export default handleError;

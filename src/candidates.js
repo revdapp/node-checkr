@@ -18,7 +18,7 @@ const candidates = options => {
         first_name: Joi.string().alphanum().min(3).required(),
         middle_name: Joi.string().alphanum(),
         last_name: Joi.string().alphanum().min(3).required(),
-        email: Joi.string().email(),
+        email: Joi.string().email().required(),
         phone: Joi.string().alphanum().min(3).max(12),
         zipcode: Joi.string().alphanum().min(3).max(10),
         dob: Joi.string().alphanum().min(8).max(10),
@@ -27,6 +27,10 @@ const candidates = options => {
         driver_license_state: Joi.string().alphanum().min(1).max(6)
       });
       const validation = Joi.validate(params, schema);
+      if (validation.error !== null) {
+        throw new Error(validation.error);
+      }
+
       if (
         !params.middle_name ||
         params.middle_name === null ||
@@ -34,10 +38,11 @@ const candidates = options => {
       ) {
         params.no_middle_name = true;
       }
-
-      if (validation.error !== null) {
-        throw new Error(validation.error);
+      else {
+        params.no_middle_name = false;
       }
+
+
       try {
         const res = await axios({
           method: 'post',
@@ -48,9 +53,10 @@ const candidates = options => {
             password: ''
           }
         });
+
         return res.data;
       } catch (error) {
-        handleError(error);
+        throw { code: error.response.status, data: error.response.data };
       }
     },
 
@@ -71,6 +77,10 @@ const candidates = options => {
         throw new Error('Update Candidate - Missing or invalid ID');
       }
       const validation = Joi.validate(params, schema);
+      if (validation.error !== null) {
+        throw new Error(validation.error);
+      }
+
       if (
         !params.middle_name ||
         params.middle_name === null ||
@@ -78,10 +88,10 @@ const candidates = options => {
       ) {
         params.no_middle_name = true;
       }
-
-      if (validation.error !== null) {
-        throw new Error(validation.error);
+      else {
+        params.no_middle_name = false;
       }
+
       try {
         const res = await axios({
           method: 'post',
@@ -94,7 +104,7 @@ const candidates = options => {
         });
         return res.data;
       } catch (error) {
-        handleError(error);
+        throw { code: error.response.status, data: error.response.data };
       }
     }
   };
