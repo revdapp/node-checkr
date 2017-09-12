@@ -31,16 +31,16 @@ const candidates = options => {
         throw new Error(validation.error);
       }
 
-      if (
-        !params.middle_name ||
-        params.middle_name === null ||
-        params.middle_name === undefined
-      ) {
-        params.no_middle_name = true;
-      }
-      else {
-        params.no_middle_name = false;
-      }
+      // if (
+      //   !params.middle_name ||
+      //   params.middle_name === null ||
+      //   params.middle_name === undefined
+      // ) {
+      //   params.no_middle_name = true;
+      // }
+      // else {
+      //   params.no_middle_name = false;
+      // }
 
 
       try {

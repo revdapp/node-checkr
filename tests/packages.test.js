@@ -12,7 +12,7 @@ process.env.SILENT_ERRORS = true; //comment this to view errors
 
 const pckg = {
   name: 'Motor Vehicle Report',
-  slug: 'mvr_only',
+  slug: 'mvr_only_1',
   screenings: [{ type: 'motor_vehicle_report', subtype: null }]
 };
 
@@ -38,7 +38,7 @@ describe('## Packages', () => {
     });
   });
   describe('# RETRIEVE', () => {
-    it('should retrieve a packages', done => {
+    it('should retrieve a package', done => {
       checkr.Packages
         .retrieve(pckg_id)
         .then(res => {
