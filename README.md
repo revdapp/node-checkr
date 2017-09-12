@@ -220,9 +220,9 @@ Supported params:
 ```javascript
   checkr.Packages
     .create({
-      name: 'My Package',
-      slug: 'my-package',
-      screenings: []
+      name: 'Motor Vehicle Report',
+      slug: 'mvr_only',
+      screenings: [{ type: 'motor_vehicle_report', subtype: null }]
     })
     .then(res => console.log(res))
     .catch(err => console.log(err));

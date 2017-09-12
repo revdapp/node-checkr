@@ -25,7 +25,7 @@ const packages = options => {
         });
         return res.data;
       } catch (error) {
-        handleError(error);
+        throw { code: error.response.status, data: error.response.data };
       }
     },
     retrieve: async id => {
@@ -51,8 +51,8 @@ const packages = options => {
     },
     create: async params => {
       const schema = Joi.object().keys({
-        name: Joi.string().alphanum().min(3).required(),
-        slug: Joi.string().alphanum().min(3).required(),
+        name: Joi.string().min(3).required(),
+        slug: Joi.string().min(3).required(),
         screenings: Joi.array().required()
       });
       const validation = Joi.validate(params, schema);
@@ -71,7 +71,7 @@ const packages = options => {
         });
         return res.data;
       } catch (error) {
-        handleError(error);
+        throw { code: error.response.status, data: error.response.data };
       }
     }
   };

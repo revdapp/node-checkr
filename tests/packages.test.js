@@ -10,21 +10,22 @@ const checkr = new Checkr(key);
 chai.config.includeStack = true;
 process.env.SILENT_ERRORS = true; //comment this to view errors
 
-describe('## Candidates', () => {
-  let candidateId = null;
-  let candidateData = {
-    first_name: 'John',
-    email: 'jdoe@gmail.com',
-    last_name: 'Doe'
-  };
+const pckg = {
+  name: 'Motor Vehicle Report',
+  slug: 'mvr_only',
+  screenings: [{ type: 'motor_vehicle_report', subtype: null }]
+};
 
+let pckg_id = null;
+
+describe('## Packages', () => {
   describe('# CREATE', () => {
-    it('should create a new candidate', done => {
-      checkr.Candidates
-        .create(candidateData)
+    it('should create a packages', done => {
+      checkr.Packages
+        .create(pckg)
         .then(res => {
           expect(res).to.have.property('id');
-          candidateId = res.id;
+          pckg_id = res.id;
           done();
         })
         .catch(err => {
@@ -36,14 +37,28 @@ describe('## Candidates', () => {
         });
     });
   });
-  describe('# UPDATE', () => {
-    it('should update a candidate', done => {
-      candidateData.first_name = 'Jane';
-      checkr.Candidates
-        .update(candidateId, candidateData)
+  describe('# RETRIEVE', () => {
+    it('should retrieve a packages', done => {
+      checkr.Packages
+        .retrieve(pckg_id)
         .then(res => {
           expect(res).to.have.property('id');
-          expect(res.first_name).to.equal('Jane');
+          done();
+        })
+        .catch(err => {
+          if (err) {
+            console.log(err);
+          }
+          expect(err).to.be.null;
+          done();
+        });
+    });
+  });
+  describe('# LIST', () => {
+    it('should list all the packages', done => {
+      checkr.Packages
+        .list()
+        .then(res => {
           done();
         })
         .catch(err => {
