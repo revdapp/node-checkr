@@ -300,6 +300,10 @@ Testing & Development
   npm install
 ```
 
+* Setup API Key
+
+- copy `.env.example` into `.env` and input your API key.
+
 * Run test set
 
 ```bash
