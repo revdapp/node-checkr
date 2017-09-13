@@ -279,12 +279,14 @@ Either package or adjudication is required.
     .catch(err => console.log(err));
 ```
 
-### To do
+To do
+-----------
 
 * Tests for screenings [ ]
 
 
-### Testing & Development
+Testing & Development
+-----------
 
 * Clone repository
 
@@ -309,6 +311,7 @@ Develop and keep tests green.
 **NOTE: packages cannot be created multiple times with the same slug, take that into account on package related tests.**
 
 
-### License
+License
+-----------
 
 This Library is licensed under the MIT license.
