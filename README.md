@@ -49,17 +49,21 @@ Supported params:
 | email                 | string        |     x    |               |
 | phone                 | alpha-numeric |          |               |
 | zipcode               | alpha-numeric |          |               |
-| dob                   | alpha-numeric |          | date of birth |
+| dob                   | string |          | date of birth |
 | ssn                   | alpha-numeric |          |               |
-| driver_license_number | alpha-numeric |          |               |
-| driver_license_state  | alpha-numeric |          |               ||
+| driver_license_number | string |          |               |
+| driver_license_state  | string |          |               ||
 
 ```javascript
   checkr.Candidates
     .create({
       first_name: 'John',
-      email: 'jdoe@mail.com',
+      middle_name: 'Smith',
+      email: 'j.doe@gmail.com',
       last_name: 'Doe',
+      dob: '1970-01-22',
+      driver_license_number: 'F211165',
+      driver_license_state: 'CA'
     })
     .then(candidate => console.log(candidate))
     .catch(err => console.log(err));
@@ -248,7 +252,7 @@ Creates a report for the candidate specified, using the package.
 
 ```javascript
   checkr.Reports
-    .create('my-package', 'ABC123')
+    .create('mvr_only', 'ABC123')
     .then(res => console.log(res))
     .catch(err => console.log(err));
 ```
@@ -269,13 +273,40 @@ Either package or adjudication is required.
 ```javascript
   checkr.Packages
     .update('ABC123', {
-      package: 'my-new-package'
+      package: 'mvr_only'
     })
     .then(res => console.log(res))
     .catch(err => console.log(err));
 ```
 
+### To do
 
+* Tests for screenings [ ]
+
+
+### Testing & Development
+
+* Clone repository
+
+```bash
+  git clone https://github.com/franciscofsales/node-checkr.git
+```
+
+* Install dependencies
+
+```bash
+  npm install
+```
+
+* Run test set
+
+```bash
+  npm run test
+```
+
+Develop and keep tests green.
+
+**NOTE: packages cannot be created multiple times with the same slug, take that into account on package related tests.**
 
 
 ### License

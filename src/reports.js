@@ -27,7 +27,7 @@ const reports = options => {
           });
           return res.data;
         } catch (error) {
-          handleError(error);
+          throw { code: error.response.status, data: error.response.data };
         }
       } else {
         throw new Error('Invalid ID');
@@ -52,7 +52,7 @@ const reports = options => {
           });
           return res.data;
         } catch (error) {
-          handleError(error);
+          throw { code: error.response.status, data: error.response.data };
         }
       } else {
         throw new Error('Invalid ID or package');
@@ -61,8 +61,8 @@ const reports = options => {
     },
     update: async (id, params) => {
       const schema = Joi.object().keys({
-        package: Joi.string().alphanum(),
-        adjudication: Joi.string().alphanum()
+        package: Joi.string(),
+        adjudication: Joi.string()
       });
       const validation = Joi.validate(params, schema);
       if (validation.error !== null) {
@@ -80,7 +80,7 @@ const reports = options => {
         });
         return res.data;
       } catch (error) {
-        handleError(error);
+        throw { code: error.response.status, data: error.response.data };
       }
     }
   };

@@ -8,7 +8,7 @@ const key = process.env.API_KEY;
 const checkr = new Checkr(key);
 
 chai.config.includeStack = true;
-process.env.SILENT_ERRORS = true; //comment this to view errors
+// process.env.SILENT_ERRORS = true; //comment this to view errors
 
 const pckg = {
   name: 'Motor Vehicle Report',
