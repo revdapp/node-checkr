@@ -297,7 +297,7 @@ Testing & Development
 * Install dependencies
 
 ```bash
-  npm install
+  yarn install
 ```
 
 * Setup API Key
@@ -307,7 +307,7 @@ Testing & Development
 * Run test set
 
 ```bash
-  npm run test
+  yarn run test
 ```
 
 Develop and keep tests green.
