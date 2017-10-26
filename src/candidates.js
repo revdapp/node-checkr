@@ -26,6 +26,41 @@ const schema = Joi.object().keys({
 
 const candidates = options => {
   return {
+    retrieve: async id => {
+      if (!id || id === undefined || id === null) {
+        throw new Error('List Candidates - Missing or invalid ID');
+      }
+      try {
+        const res = await axios({
+          method: 'get',
+          url: `${options.baseUrl}/${options.apiVersion}/candidates/${id}`,
+          auth: {
+            username: options.apiKey,
+            password: ''
+          }
+        });
+        return res.data;
+      } catch (error) {
+        throw { code: error.response.status, data: error.response.data };
+      }
+    },
+
+    list: async () => {
+      try {
+        const res = await axios({
+          method: 'get',
+          url: `${options.baseUrl}/${options.apiVersion}/candidates`,
+          auth: {
+            username: options.apiKey,
+            password: ''
+          }
+        });
+        return res.data;
+      } catch (error) {
+        throw { code: error.response.status, data: error.response.data };
+      }
+    },
+
     create: async params => {
 
       const validation = Joi.validate(params, schema);
@@ -85,7 +120,7 @@ const candidates = options => {
       } catch (error) {
         throw { code: error.response.status, data: error.response.data };
       }
-    }
+    },
   };
 };
 
