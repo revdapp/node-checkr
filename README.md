@@ -34,6 +34,28 @@ const Checkr = new checkr(API_KEY);
 Candidates
 -----------
 
+##### `list()`
+
+Returns the list of all existing candidates.
+
+```javascript
+  checkr.Candidates
+    .list()
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
+##### `retrieve(id)`
+
+Retrieves a particular candidate, given the `id`.
+
+```javascript
+  checkr.Candidates
+    .retrieve(id)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+```
+
 ##### `create(params)`
 
 

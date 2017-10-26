@@ -55,4 +55,40 @@ describe('## Candidates', () => {
         });
     });
   });
+  describe('# LIST', () => {
+    it('should list all candidates', done => {
+      checkr.Candidates
+        .list()
+        .then(res => {
+          expect(res).to.have.property('data');
+          expect(res.data).to.be.an('array')
+          done();
+        })
+        .catch(err => {
+          if (err) {
+            console.log(err);
+          }
+          expect(err).to.be.null;
+          done();
+        });
+    });
+  });
+  describe('# RETRIEVE', () => {
+    it('should retrieve an existing candidate', done => {
+      checkr.Candidates
+        .retrieve( candidateId )
+        .then(res => {
+          expect(res).to.have.property('id');
+          expect(res.first_name).to.equal('Jane');
+          done();
+        })
+        .catch(err => {
+          if (err) {
+            console.log(err);
+          }
+          expect(err).to.be.null;
+          done();
+        });
+    });
+  });
 });
