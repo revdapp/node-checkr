@@ -14,6 +14,7 @@ import handleError from './handleError';
 const schema = Joi.object().keys({
   first_name: Joi.string().alphanum().min(3).required(),
   middle_name: Joi.string().alphanum(),
+  no_middle_name: Joi.boolean(),
   last_name: Joi.string().alphanum().min(3).required(),
   email: Joi.string().email().required(),
   phone: Joi.string().alphanum().min(3).max(12),
