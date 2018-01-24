@@ -21,7 +21,8 @@ const schema = Joi.object().keys({
   dob: Joi.string().min(6).max(10),
   ssn: Joi.string().alphanum().min(3).max(14),
   driver_license_number: Joi.string().min(3).max(14),
-  driver_license_state: Joi.string().min(1).max(6)
+  driver_license_state: Joi.string().min(1).max(6),
+  copy_requested: Joi.boolean().default(false)
 });
 
 const candidates = options => {
