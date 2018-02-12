@@ -1,6 +1,6 @@
 /* ============================================================
  * node.checkr
- * https://github.com/franciscofsales/node-checkr
+ * https://github.com/revdapp/node-checkr
  *
  * ============================================================
  * Copyright 2014-2017, Francisco Sales
@@ -22,7 +22,8 @@ const schema = Joi.object().keys({
   dob: Joi.string().min(6).max(10),
   ssn: Joi.string().alphanum().min(3).max(14),
   driver_license_number: Joi.string().min(3).max(14),
-  driver_license_state: Joi.string().min(1).max(6)
+  driver_license_state: Joi.string().min(1).max(6),
+  copy_requested: Joi.boolean().default(false)
 });
 
 const candidates = options => {
@@ -69,16 +70,16 @@ const candidates = options => {
         throw new Error(validation.error);
       }
 
-      // if (
-      //   !params.middle_name ||
-      //   params.middle_name === null ||
-      //   params.middle_name === undefined
-      // ) {
-      //   params.no_middle_name = true;
-      // }
-      // else {
-      //   params.no_middle_name = false;
-      // }
+      if (
+        !params.middle_name ||
+        params.middle_name === null ||
+        params.middle_name === undefined
+      ) {
+        params.no_middle_name = true;
+      }
+      else {
+        params.no_middle_name = false;
+      }
 
 
       try {

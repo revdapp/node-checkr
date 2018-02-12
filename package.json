@@ -1,6 +1,6 @@
 {
   "name": "node-checkr",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "API wrapper for checkr.io",
   "main": "build/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "test": "NODE_ENV=test cross-env nyc mocha ./tests/*.test.js",
     "prepublish": "npm run build"
   },
-  "repository": "https://github.com/franciscofsales/node-checkr.git",
+  "repository": "https://github.com/revdapp/node-checkr.git",
   "author": "Francisco Sales",
   "dependencies": {
     "axios": "^0.16.2",
