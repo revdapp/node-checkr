@@ -1,6 +1,6 @@
 /* ============================================================
  * node.checkr
- * https://github.com/franciscofsales/node-checkr
+ * https://github.com/revdapp/node-checkr
  *
  * ============================================================
  * Copyright 2014-2017, Francisco Sales
@@ -34,16 +34,16 @@ const candidates = options => {
         throw new Error(validation.error);
       }
 
-      // if (
-      //   !params.middle_name ||
-      //   params.middle_name === null ||
-      //   params.middle_name === undefined
-      // ) {
-      //   params.no_middle_name = true;
-      // }
-      // else {
-      //   params.no_middle_name = false;
-      // }
+      if (
+        !params.middle_name ||
+        params.middle_name === null ||
+        params.middle_name === undefined
+      ) {
+        params.no_middle_name = true;
+      }
+      else {
+        params.no_middle_name = false;
+      }
 
 
       try {

@@ -1,6 +1,6 @@
 /* ============================================================
  * node.checkr
- * https://github.com/franciscofsales/node-checkr
+ * https://github.com/revdapp/node-checkr
  *
  * ============================================================
  * Copyright 2014-2017, Francisco Sales
