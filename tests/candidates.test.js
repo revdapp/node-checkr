@@ -17,7 +17,7 @@ describe('## Candidates', () => {
   let candidateData = {
     first_name: 'Charles',
     last_name: 'Babbage',
-    email: 'charles.babbage@drata.com'
+    email: 'charles.babbage@example.com'
   };
 
   describe('# CREATE', () => {

@@ -20,7 +20,7 @@ describe('## Reports', () => {
     let candidateData = {
       first_name: 'Charles',
       last_name: 'Babbage',
-      email: 'charles.babbage@drata.com',
+      email: 'charles.babbage@example.com',
       dob: '1970-01-02',
       driver_license_number: 'F211165',
       driver_license_state: 'CA'

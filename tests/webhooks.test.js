@@ -16,8 +16,7 @@ describe('## Webhooks', () => {
   let webhookUrl = webhookUrlDefault;
   const webhookUrlDefault = 'https://company.com/v1/webhook';
   let webhookData = {
-    // webhook_url: 'https://company.com/v1/webhook'
-    webhook_url: "https://drata-api.ngrok.io/checkr/webhook"
+    webhook_url: 'https://example.com/v1/webhook'
   };
 
   describe('# CREATE', () => {
