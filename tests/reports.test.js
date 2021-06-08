@@ -38,15 +38,12 @@ describe('## Reports', () => {
           // 'should list candidates'
           expect(res).to.have.property('data');
           expect(res.data).to.be.an('array')
-          // console.log(res);
           let candidate = res.data[0];
           expect(candidate).to.have.property('id');
           candidateId = candidate.id;
           // console.log(candidate);
           console.log("candidateId:",candidate.id);
           console.log("id:",candidate.id,",email:",candidate.email);
-          // console.log("id:",candidate.id,",email:",candidate.email,
-          //   ", name:",candidate.first_name," ",candidate.last_name);
           checkr.Reports
             .create(packageSlug, candidate.id)
             .then(res => {
@@ -84,6 +81,25 @@ describe('## Reports', () => {
         })
         .then(res => {
           expect(res).to.have.property('id');
+          done();
+        })
+        .catch(err => {
+          return new Promise((resolve, reject) => {
+          if (err) {
+            console.log(err);
+          }
+          expect(err).to.be.null;
+          // done();
+          });
+        });
+    });
+  });
+  describe('# ETA', () => {
+    it('should provide report eta', done => {
+      checkr.Reports
+        .eta(reportId)
+        .then(res => {
+          expect(res).to.have.property('estimated_completion_time');
           done();
         })
         .catch(err => {

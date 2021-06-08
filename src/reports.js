@@ -15,48 +15,48 @@ const reports = options => {
   return {
     retrieve: async id => {
       const alphaRegex = /^[a-z0-9]+/i;
-      if (alphaRegex.test(id)) {
-        try {
-          const res = await axios({
-            method: 'get',
-            url: `${options.baseUrl}/${options.apiVersion}/reports/${id}`,
-            auth: {
-              username: options.apiKey,
-              password: ''
-            }
-          });
-          return res.data;
-        } catch (error) {
-          throw { code: error.response.status, data: error.response.data };
-        }
-      } else {
-        throw new Error('Invalid ID');
+      if (! alphaRegex.test(id)) {
+        throw new Error('Invalid report ID');
         return;
+      }
+      try {
+        const res = await axios({
+          method: 'get',
+          url: `${options.baseUrl}/${options.apiVersion}/reports/${id}`,
+          auth: {
+            username: options.apiKey,
+            password: ''
+          }
+        });
+        return res.data;
+      } catch (error) {
+        throw { code: error.response.status, data: error.response.data };
       }
     },
     create: async (pckage, id) => {
       const alphaRegex = /^[a-z0-9]+/i;
-      if (alphaRegex.test(pckage) && alphaRegex.test(id)) {
-        try {
-          const res = await axios({
-            method: 'post',
-            url: `${options.baseUrl}/${options.apiVersion}/reports`,
-            data: {
-              candidate_id: id,
-              package: pckage
-            },
-            auth: {
-              username: options.apiKey,
-              password: ''
-            }
-          });
-          return res.data;
-        } catch (error) {
-          throw { code: error.response.status, data: error.response.data };
-        }
-      } else {
-        throw new Error('Invalid ID or package');
-        return;
+      if ( ! alphaRegex.test(id)) {
+        throw new Error('Invalid candidate ID');
+      }
+      if ( ! alphaRegex.test(pckage) ) {
+        throw new Error('Invalid package ID');
+      }
+      try {
+        const res = await axios({
+          method: 'post',
+          url: `${options.baseUrl}/${options.apiVersion}/reports`,
+          data: {
+            candidate_id: id,
+            package: pckage
+          },
+          auth: {
+            username: options.apiKey,
+            password: ''
+          }
+        });
+        return res.data;
+      } catch (error) {
+        throw { code: error.response.status, data: error.response.data };
       }
     },
     update: async (id, params) => {
@@ -82,7 +82,27 @@ const reports = options => {
       } catch (error) {
         throw { code: error.response.status, data: error.response.data };
       }
-    }
+    },
+    eta: async id => {
+      const alphaRegex = /^[a-z0-9]+/i;
+      if (! alphaRegex.test(id)) {
+        throw new Error('Invalid report ID');
+        return;
+      }
+      try {
+        const res = await axios({
+          method: 'get',
+          url: `${options.baseUrl}/${options.apiVersion}/reports/${id}/eta`,
+          auth: {
+            username: options.apiKey,
+            password: ''
+          }
+        });
+        return res.data;
+      } catch (error) {
+        throw { code: error.response.status, data: error.response.data };
+      }
+    },
   };
 };
 

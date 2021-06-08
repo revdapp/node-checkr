@@ -7,12 +7,13 @@
  * Released under the MIT License
  * ============================================================ */
 
+import accounts from './accounts';
 import candidates from './candidates';
 import reports from './reports';
 import packages from './packages';
 import screenings from './screenings';
-import accounts from './accounts';
 import webhooks from './webhooks';
+import counties from './counties';
 
 class NodeCheckr {
   constructor(API_KEY) {
@@ -28,10 +29,11 @@ class NodeCheckr {
     };
     this.Accounts = accounts(this.options);
     this.Candidates = candidates(this.options);
-    this.Reports = reports(this.options);
+    this.Reports  = reports(this.options);
     this.Packages = packages(this.options);
     this.Screenings = screenings(this.options);
     this.Webhooks = webhooks(this.options);
+    this.Counties = counties(this.options);
   }
 
 }
