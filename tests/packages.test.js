@@ -20,6 +20,11 @@ const pckg = {
 let pckgId = null;
 
 describe('## Packages', () => {
+  let packageData = {
+    name: 'Newhire base',
+    slug: 'newhire_base',
+    screenings: [{ type: 'motor_vehicle_report', subtype: null }]
+  };
   describe('# LIST', () => {
     it('should list all the packages', done => {
       checkr.Packages
@@ -48,24 +53,27 @@ describe('## Packages', () => {
         });
     });
   });
-  describe('# CREATE', () => {
+  describe('# CREATE', (pckg) => {
     it('should create a packages', done => {
-      // return new Promise((resolve, reject) => {
       checkr.Packages
-        // .create(pckg)
-        .retrieve(pckgId)
+        .create(pckg)
+        // .retrieve(pckgId) // for testing
         .then(res => {
           expect(res).to.have.property('id');
           pckgId = res.id;
-          candidateId = res.id;
           console.log('packageId:',pckgId);
           done();
         })
         .catch(err => {
           return new Promise((resolve, reject) => {
-            if( err.code === 400 && err.error === 'Slug has already been taken' ) {
+            if( err.code === 400 ) {
+              console.log("err:",err);
               expect(err.code).to.equal(400);
-              expect(err.error).to.equal('Slug has already been taken');
+              if( err.error === 'Slug has already been taken' ) {
+                expect(err.error).to.equal('Slug has already been taken');
+              } else if( err.error === 'slug is missing, name is missing, screenings is missing' ) {
+                expect(err.error).to.equal('slug is missing, name is missing, screenings is missing');
+              }
             } else {
               if (err) {
                 console.log(err);
@@ -75,7 +83,6 @@ describe('## Packages', () => {
             }
           });
         });
-      // });
     });
   });
   describe('# RETRIEVE', () => {
@@ -86,9 +93,9 @@ describe('## Packages', () => {
           expect(res).to.have.property('id');
           expect(res).to.have.property('name');
           expect(res).to.have.property('slug');
-          // console.log(res);
           console.log(res.id,",slug:",res.slug);
           // console.log("id:",res.id,",name:",res.name,",slug:",res.slug);
+          // console.log(res);
           done();
         })
         .catch(err => {

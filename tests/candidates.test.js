@@ -13,7 +13,7 @@ chai.config.includeStack = true;
 
 describe('## Candidates', () => {
   // let candidateId = null;
-  let candidateId = '844464f4f524bbf558fa580d';
+  let candidateId = 'e44aa283528e6fde7d542194';
   let candidateData = {
     first_name: 'Charles',
     last_name: 'Babbage',
@@ -24,8 +24,8 @@ describe('## Candidates', () => {
     it('should create a new candidate', done => {
       // return new Promise((resolve, reject) => {
       checkr.Candidates
-        // .create(candidateData)
-        .retrieve(candidateId)
+        .create(candidateData)
+        // .retrieve(candidateId) // for testing
         .then(res => {
           // 'should create new candidate'
           expect(res).to.have.property('id');
@@ -38,6 +38,7 @@ describe('## Candidates', () => {
             if( err.code === 400 && err.error === 'Slug has already been taken' ) {
               expect(err.code).to.equal(400);
               expect(err.error).to.equal('Slug has already been taken');
+done();
             } else {
               if (err) {
                 console.log(err);
@@ -56,10 +57,9 @@ describe('## Candidates', () => {
       checkr.Candidates
         .update(candidateId, candidateData)
         .then(candidate => {
-            // 'should change candidate name'
+          // 'should change candidate name'
           expect(candidate).to.have.property('id');
           expect(candidate.first_name).to.equal('Chuck');
-          // console.log('candidateId:',candidateId);
           console.log('candidateId:',candidate.id);
           expect(candidate.id).to.equal(candidateId);
           // console.log('candidate:',candidate);
@@ -86,12 +86,11 @@ describe('## Candidates', () => {
           expect(res.data).to.be.an('array')
           expect(res.data[0]).to.have.property('id');
           expect(res.data[0]).to.have.property('email');
-          // console.log(res);
           res.data.forEach(function(item) {
+            console.log("id:",item.id,",email:",item.email);
+            // console.log("id:",item.id,",email:",item.email,
+            //   ", name:",item.first_name," ",item.last_name);
             // console.log(item);
-            // console.log(item.id,",",email:",item.email);
-            console.log("id:",item.id,",email:",item.email,
-              ", name:",item.first_name," ",item.last_name);
           });
           done();
         })
@@ -112,7 +111,7 @@ describe('## Candidates', () => {
       checkr.Candidates
         .retrieve( candidateId )
         .then(res => {
-            // 'should get specified candidate'
+          // 'should get specified candidate'
           expect(res).to.have.property('id');
           expect(res.first_name).to.equal('Chuck');
           // console.log('res:',res);

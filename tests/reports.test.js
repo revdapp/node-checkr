@@ -26,21 +26,23 @@ describe('## Reports', () => {
       driver_license_state: 'CA'
     };
     it('should create a new report', done => {
+      /* use list rather than create for testing...
       // checkr.Candidates
       //   .create(candidateData)
-      //   .then(candidate => {
+      //   .then(candidate => { ... } )
+      */
+      // list to use existing candidate for testing...
       checkr.Candidates
         .list()
         .then(res => {
           // 'should list candidates'
-          // expect(candidate).to.have.property('id');
-          // candidateId = candidate.id;
-          // console.log(res);
           expect(res).to.have.property('data');
           expect(res.data).to.be.an('array')
+          // console.log(res);
           let candidate = res.data[0];
-          // console.log(candidate);
+          expect(candidate).to.have.property('id');
           candidateId = candidate.id;
+          // console.log(candidate);
           console.log("candidateId:",candidate.id);
           console.log("id:",candidate.id,",email:",candidate.email);
           // console.log("id:",candidate.id,",email:",candidate.email,
