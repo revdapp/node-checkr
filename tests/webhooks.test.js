@@ -24,7 +24,7 @@ describe('## Webhooks', () => {
       checkr.Webhooks
         .create(webhookData)
         .then(res => {
-          expect(res).to.have.property('data');
+          expect(res).to.have.property('id');
           expect(res).to.have.property('webhook_url');
           webhookUrl = res.webhook_url;
           webhookId = res.id;
@@ -39,6 +39,8 @@ describe('## Webhooks', () => {
               expect(err.code).to.equal(400);
               if( err.data.error === 'Url has already been taken' ) {
                 expect(err.data.error).to.equal('Url has already been taken');
+              } else if( err.data.error === 'Allowed webhook API limit exceeded' ) {
+                expect(err.data.error).to.equal('Allowed webhook API limit exceeded');
               } else {
                 expect(err.data.error).to.equal('Url has already been taken');
               }
@@ -67,7 +69,6 @@ describe('## Webhooks', () => {
             expect(hook).to.have.property('webhook_url');
             // console.log(hook);
             console.log("id:",hook.id,",url:",hook.webhook_url);
-            // console.log("id:",item.id,",name:",item.name,",url:",item.webhook_url);
           });
           if ( !webhookId ) {
             webhookId = webhooks[0].id.trim();
@@ -87,7 +88,7 @@ describe('## Webhooks', () => {
     });
   });
   describe('# GET', (id) => {
-    it('should get a webhooks', done => {
+    it('should get a webhook', done => {
       if ( ! id ) {
         id = webhookId.trim();
       }
@@ -98,7 +99,6 @@ describe('## Webhooks', () => {
         .get(webhookId)
         .then(res => {
           expect(res).to.have.property('id');
-          // expect(res.webhook_url).to.equal(webhookUrlDefault);
           done();
         })
         .catch(err => {
