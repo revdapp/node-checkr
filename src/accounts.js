@@ -80,7 +80,10 @@ account schema = {
 const accounts = options => {
   return {
     create: async params => {
-      const purpose_values = [ "employment", "business", "insurance", "tenant" ];
+      const purpose_values = [ "employment",
+        "business",
+        "insurance",
+        "tenant" ];
       const incorporation_values = [
         "association",
         "co-ownership",
@@ -93,7 +96,7 @@ const accounts = options => {
         "partnership",
         "s-corporation",
         "sp",
-        "trusteeship"];
+        "trusteeship" ];
       const schema_user = Joi.object().keys({
         full_name : Joi.string().min(8).default(''),
         email : Joi.string().min(6).default(''),
@@ -115,20 +118,7 @@ const accounts = options => {
         zipcode : Joi.string(), // required(),
         // State where company is incorporated. Format: ISO 3166-2:US.
         incorporation_state : Joi.string().min(2).default(''), // not required
-        // Type of incorporation. (incorporation_type : string)
-        // incorporation values = [
-        //   "association",
-        //   "co-ownership",
-        //   "corporation",
-        //   "joint-venture",
-        //   "limited-partnership",
-        //   "llc",
-        //   "llp",
-        //   "non-profit",
-        //   "partnership",
-        //   "s-corporation",
-        //   "sp",
-        //   "trusteeship" ]
+        // Type of incorporation. allow: incorporation_values
         incorporation_type : Joi.string().required().allow(incorporation_values),
         // Company phone number.
         phone : Joi.string(), // not required
@@ -177,20 +167,7 @@ const accounts = options => {
           zipcode : Joi.string().required(),
           // State where company is incorporated. Format: ISO 3166-2:US.
           incorporation_state : Joi.string().min(2).default(''), // not required
-          // Type of incorporation. (incorporation_type : string)
-          // incorporation values = [
-          //   "association",
-          //   "co-ownership",
-          //   "corporation",
-          //   "joint-venture",
-          //   "limited-partnership",
-          //   "llc",
-          //   "llp",
-          //   "non-profit",
-          //   "partnership",
-          //   "s-corporation",
-          //   "sp",
-          //   "trusteeship" ]
+          // Type of incorporation. allow: incorporation_values
           incorporation_type : Joi.string().required().allow(incorporation_values),
           // Company phone number.
           phone : Joi.string(), // not required
@@ -211,24 +188,9 @@ const accounts = options => {
       if (validation_company.error !== null) {
         throw new Error(validation_company.error);
       }
-      // console.log("incorporation_type:",params.company.incorporation_type);
-      // if ( !( [
-      //         "association",
-      //         "co-ownership",
-      //         "corporation",
-      //         "joint-venture",
-      //         "limited-partnership",
-      //         "llc",
-      //         "llp",
-      //         "non-profit",
-      //         "partnership",
-      //         "s-corporation",
-      //         "sp",
-      //         "trusteeship"]
-      //     .includes(params.company.incorporation_type) ) ) { ... }
       if ( !( incorporation_values.includes(params.company.incorporation_type) ) ) {
         // console.log("incorporation_type:",params.company.incorporation_type);
-        throw new Error(`Invalid parameters, company incorporation type`);
+        throw new Error(`Invalid parameter, incorporation type`);
       }
       try {
         const res = await axios({
