@@ -3,7 +3,8 @@ import Dotenv from 'dotenv';
 import Checkr from '../src';
 
 const dotenv = Dotenv.config();
-const key = process.env.API_KEY;
+// const key = process.env.API_KEY;
+const key = process.env.CHECKR_API_KEY;
 
 const checkr = new Checkr(key);
 
@@ -12,44 +13,64 @@ chai.config.includeStack = true;
 
 describe('## Reports', () => {
   let reportId = null;
+  let candidateId = null;
   let packageSlug = 'mvr_only_1';
 
   describe('# CREATE', () => {
     let candidateData = {
-      first_name: 'John',
-      middle_name: 'Smith',
-      email: 'j.doe@gmail.com',
-      last_name: 'Doe',
-      dob: '1970-01-22',
+      first_name: 'Charles',
+      last_name: 'Babbage',
+      email: 'charles.babbage@drata.com',
+      dob: '1970-01-02',
       driver_license_number: 'F211165',
       driver_license_state: 'CA'
     };
     it('should create a new report', done => {
+      // checkr.Candidates
+      //   .create(candidateData)
+      //   .then(candidate => {
       checkr.Candidates
-        .create(candidateData)
-        .then(candidate => {
-          expect(candidate).to.have.property('id');
+        .list()
+        .then(res => {
+          // 'should list candidates'
+          // expect(candidate).to.have.property('id');
+          // candidateId = candidate.id;
+          // console.log(res);
+          expect(res).to.have.property('data');
+          expect(res.data).to.be.an('array')
+          let candidate = res.data[0];
+          // console.log(candidate);
+          candidateId = candidate.id;
+          console.log("candidateId:",candidate.id);
+          console.log("id:",candidate.id,",email:",candidate.email);
+          // console.log("id:",candidate.id,",email:",candidate.email,
+          //   ", name:",candidate.first_name," ",candidate.last_name);
           checkr.Reports
             .create(packageSlug, candidate.id)
             .then(res => {
-              reportId = res.id;
               expect(res).to.have.property('id');
+              reportId = res.id;
+              console.log("reportId:",res.id);
               done();
             })
             .catch(err => {
+              return new Promise((resolve, reject) => {
               if (err) {
                 console.log(err);
               }
               expect(err).to.be.null;
-              done();
+              // done();
+              });
             });
         })
         .catch(err => {
+          return new Promise((resolve, reject) => {
           if (err) {
             console.log(err);
           }
           expect(err).to.be.null;
-          done();
+          // done();
+          });
         });
     });
   });
@@ -64,11 +85,13 @@ describe('## Reports', () => {
           done();
         })
         .catch(err => {
+          return new Promise((resolve, reject) => {
           if (err) {
             console.log(err);
           }
           expect(err).to.be.null;
-          done();
+          // done();
+          });
         });
     });
   });
