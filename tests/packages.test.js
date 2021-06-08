@@ -17,33 +17,9 @@ const pckg = {
   screenings: [{ type: 'motor_vehicle_report', subtype: null }]
 };
 
-let pckg_id = null;
+let pckgId = null;
 
 describe('## Packages', () => {
-  describe('# CREATE', () => {
-    it('should create a packages', done => {
-      checkr.Packages
-        .create(pckg)
-        .then(res => {
-          expect(res).to.have.property('id');
-          pckg_id = res.id;
-          console.log("packageId:",pckg_id);
-          // done();
-        })
-        .catch(err => {
-          if (err) {
-            console.log(err);
-          }
-          if( err.code === 400 && err.error === 'Slug has already been taken' ) {
-              expect(err.code).to.equal(400);
-              expect(err.error).to.equal('Slug has already been taken');
-          } else {
-              expect(err).to.be.null;
-          }
-          // done();
-        });
-    });
-  });
   describe('# LIST', () => {
     it('should list all the packages', done => {
       checkr.Packages
@@ -52,9 +28,9 @@ describe('## Packages', () => {
           expect(res).to.have.property('data');
           expect(res.data[0]).to.have.property('id');
           // console.log(res);
-          if ( pckg_id === null && res.data[0] ) {
-            pckg_id = res.data[0].id;
-            console.log("packageId:",pckg_id);
+          if ( pckgId === null && res.data[0] ) {
+            pckgId = res.data[0].id;
+            console.log("packageId:",pckgId);
           }
           res.data.forEach(function(item) {
             // console.log(item);
@@ -72,10 +48,40 @@ describe('## Packages', () => {
         });
     });
   });
+  describe('# CREATE', () => {
+    it('should create a packages', done => {
+      // return new Promise((resolve, reject) => {
+      checkr.Packages
+        // .create(pckg)
+        .retrieve(pckgId)
+        .then(res => {
+          expect(res).to.have.property('id');
+          pckgId = res.id;
+          candidateId = res.id;
+          console.log('packageId:',pckgId);
+          done();
+        })
+        .catch(err => {
+          return new Promise((resolve, reject) => {
+            if( err.code === 400 && err.error === 'Slug has already been taken' ) {
+              expect(err.code).to.equal(400);
+              expect(err.error).to.equal('Slug has already been taken');
+            } else {
+              if (err) {
+                console.log(err);
+              }
+              expect(err).to.be.null;
+              assert.isNotOk(error,'Promise error');
+            }
+          });
+        });
+      // });
+    });
+  });
   describe('# RETRIEVE', () => {
     it('should retrieve a package', done => {
       checkr.Packages
-        .retrieve(pckg_id)
+        .retrieve(pckgId)
         .then(res => {
           expect(res).to.have.property('id');
           expect(res).to.have.property('name');
