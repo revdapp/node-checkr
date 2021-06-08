@@ -22,27 +22,32 @@ describe('## Candidates', () => {
 
   describe('# CREATE', () => {
     it('should create a new candidate', done => {
-      return new Promise((resolve, reject) => {
-        checkr.Candidates
-          // .create(candidateData)
-          .retrieve(candidateId)
-          .then(res => {
-            // 'should create new candidate'
-            expect(res).to.have.property('id');
-            candidateId = res.id;
-            console.log('candidateId:',candidateId);
-            // done();
-          })
-          .catch(err => {
-            return new Promise((resolve, reject) => {
+      // return new Promise((resolve, reject) => {
+      checkr.Candidates
+        // .create(candidateData)
+        .retrieve(candidateId)
+        .then(res => {
+          // 'should create new candidate'
+          expect(res).to.have.property('id');
+          candidateId = res.id;
+          console.log('candidateId:',candidateId);
+          done();
+        })
+        .catch(err => {
+          return new Promise((resolve, reject) => {
+            if( err.code === 400 && err.error === 'Slug has already been taken' ) {
+              expect(err.code).to.equal(400);
+              expect(err.error).to.equal('Slug has already been taken');
+            } else {
               if (err) {
                 console.log(err);
               }
               expect(err).to.be.null;
               assert.isNotOk(error,'Promise error');
-            });
+            }
           });
-      });
+        });
+      // });
     });
   });
   describe('# UPDATE', () => {
