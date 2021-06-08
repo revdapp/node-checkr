@@ -3,7 +3,6 @@ import Dotenv from 'dotenv';
 import Checkr from '../src';
 
 const dotenv = Dotenv.config();
-// const key = process.env.API_KEY;
 const key = process.env.CHECKR_API_KEY;
 
 const checkr = new Checkr(key);
