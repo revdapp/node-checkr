@@ -34,14 +34,14 @@ describe('## Accounts', () => {
     "client_id": clientId,
     "name": "Acme Corporation",
     "default_compliance_state": "CA",
-    "adverse_action_email" : "john.doe@example.com",
+    "adverse_action_email" : "charles.babbage@gmail.com",
     "purpose": "employment",
-    "support_email": "support@example.com",
+    "support_email": "charles.babbage@gmail.com",
     "support_phone": "206-555-0188",
-    "technical_contact_email": "jane.contact@example.com",
+    "technical_contact_email": "charles.babbage@gmail.com",
     "user": {
       "full_name": "Johnathan Doe",
-      "email": "john.doe@example.com"
+      "email": "charles.babbage.doe@gmail.com"
     },
     company: {
       "dba_name": "Acme",
@@ -59,13 +59,13 @@ describe('## Accounts', () => {
   };
   describe('# CREATE', () => {
     it('should create an account', done => {
-      console.log("accountId:",accountId);
+      // console.log("accountId:",accountId);
       checkr.Accounts
         .create(accountData)
         .then(res => {
           expect(res).to.have.property('id');
           accountId = res.id;
-          console.log("accountId:",accountId);
+          // console.log("accountId:",accountId);
           done();
         })
         .catch(err => {
@@ -95,17 +95,12 @@ describe('## Accounts', () => {
           return new Promise((resolve, reject) => {
             if (err) {
               console.log(err);
-              console.log(err.code);
-              console.log(err.error);
             }
             expect(err).to.be.null;
             if( err.code === 400 && err.error === 'Invalid account ID' ) {
               expect(err.code).to.equal(400);
               expect(err.error).to.equal('Invalid account ID');
             } else {
-              if (err) {
-                console.log(err);
-              }
               expect(err).to.be.null;
               assert.isNotOk(error,'Promise error');
             }

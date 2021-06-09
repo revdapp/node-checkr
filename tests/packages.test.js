@@ -37,9 +37,8 @@ describe('## Packages', () => {
             console.log("packageId:",pckgId);
           }
           res.data.forEach(function(item) {
-            // console.log(item);
             console.log(item.id,",slug:",item.slug);
-            // console.log("id:",item.id,",name:",item.name,",slug:",item.slug);
+            // console.log(item);
           });
           done();
         })
@@ -66,7 +65,7 @@ describe('## Packages', () => {
         .catch(err => {
           return new Promise((resolve, reject) => {
             if( err.code === 400 ) {
-              console.log("err:",err);
+              console.log(err);
               expect(err.code).to.equal(400);
               if( err.error === 'Slug has already been taken' ) {
                 expect(err.error).to.equal('Slug has already been taken');
@@ -92,8 +91,7 @@ describe('## Packages', () => {
           expect(res).to.have.property('id');
           expect(res).to.have.property('name');
           expect(res).to.have.property('slug');
-          console.log(res.id,",slug:",res.slug);
-          // console.log("id:",res.id,",name:",res.name,",slug:",res.slug);
+          console.log("id:",res.id,",slug:",res.slug);
           // console.log(res);
           done();
         })

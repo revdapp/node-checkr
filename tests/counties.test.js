@@ -20,10 +20,9 @@ describe('## Counties', () => {
           expect(res).to.have.property(states[0]);
           expect(res[states[0]]).to.have.property("counties");
           states.forEach(function(state) {
-            console.log(state);
-            console.log(res[state]);
             expect(res).to.have.property(state);
             expect(res[state]).to.have.property("counties");
+            // console.log(state,res[state]);
           });
           done();
         })
@@ -31,8 +30,6 @@ describe('## Counties', () => {
           return new Promise((resolve, reject) => {
             if (err) {
               console.log(err);
-              console.log(err.code);
-              console.log(err.error);
             }
             expect(err).to.be.null;
             assert.isNotOk(error,'Promise error');

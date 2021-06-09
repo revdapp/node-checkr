@@ -19,7 +19,7 @@ describe('## Reports', () => {
     let candidateData = {
       first_name: 'Charles',
       last_name: 'Babbage',
-      email: 'charles.babbage@example.com',
+      email: 'charles.babbage@gmail.com',
       dob: '1970-01-02',
       driver_license_number: 'F211165',
       driver_license_state: 'CA'
@@ -41,7 +41,6 @@ describe('## Reports', () => {
           expect(candidate).to.have.property('id');
           candidateId = candidate.id;
           // console.log(candidate);
-          console.log("candidateId:",candidate.id);
           console.log("id:",candidate.id,",email:",candidate.email);
           checkr.Reports
             .create(packageSlug, candidate.id)

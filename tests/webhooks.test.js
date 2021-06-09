@@ -33,8 +33,7 @@ describe('## Webhooks', () => {
           // console.log("error:",err);
           return new Promise((resolve, reject) => {
             if( err && err.code === 400 ) {
-              console.log("error:",err);
-              // console.log("error.code:",err.code);
+              console.log(err);
               expect(err.code).to.equal(400);
               if( err.data.error === 'Url has already been taken' ) {
                 expect(err.data.error).to.equal('Url has already been taken');
@@ -44,7 +43,6 @@ describe('## Webhooks', () => {
                 expect(err.data.error).to.equal('Url has already been taken');
               }
             } else {
-              console.log("error.code:",err.code);
               if (err) {
                 console.log(err);
               }
@@ -66,8 +64,8 @@ describe('## Webhooks', () => {
           let webhooks = res.data;
           webhooks.forEach(function(hook) {
             expect(hook).to.have.property('webhook_url');
-            // console.log(hook);
             console.log("id:",hook.id,",url:",hook.webhook_url);
+            // console.log(hook);
           });
           if ( !webhookId ) {
             webhookId = webhooks[0].id.trim();

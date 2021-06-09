@@ -16,7 +16,7 @@ describe('## Candidates', () => {
   let candidateData = {
     first_name: 'Charles',
     last_name: 'Babbage',
-    email: 'charles.babbage@example.com'
+    email: 'charles.babbage@gmail.com'
   };
 
   describe('# CREATE', () => {
@@ -59,8 +59,8 @@ done();
           // 'should change candidate name'
           expect(candidate).to.have.property('id');
           expect(candidate.first_name).to.equal('Chuck');
-          console.log('candidateId:',candidate.id);
           expect(candidate.id).to.equal(candidateId);
+          console.log('candidateId:',candidate.id);
           // console.log('candidate:',candidate);
           done();
         })
@@ -87,8 +87,6 @@ done();
           expect(res.data[0]).to.have.property('email');
           res.data.forEach(function(item) {
             console.log("id:",item.id,",email:",item.email);
-            // console.log("id:",item.id,",email:",item.email,
-            //   ", name:",item.first_name," ",item.last_name);
             // console.log(item);
           });
           done();
@@ -106,13 +104,13 @@ done();
   });
   describe('# RETRIEVE', () => {
     it('should retrieve an existing candidate', done => {
-      console.log('candidateId:',candidateId);
       checkr.Candidates
         .retrieve( candidateId )
         .then(res => {
           // 'should get specified candidate'
           expect(res).to.have.property('id');
           expect(res.first_name).to.equal('Chuck');
+          console.log('candidateId:',candidateId);
           // console.log('res:',res);
           done();
         })
