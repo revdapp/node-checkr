@@ -58,7 +58,7 @@ describe('## Accounts', () => {
     }
   };
   describe('# CREATE', () => {
-    it('should create an account', done => {
+    it.skip('should create an account', done => {
       // console.log("accountId:",accountId);
       checkr.Accounts
         .create(accountData)
