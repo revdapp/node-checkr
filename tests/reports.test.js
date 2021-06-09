@@ -20,8 +20,6 @@ chai.config.includeStack = true;
 // process.env.SILENT_ERRORS = true; //comment this to view errors
 
 describe('## Reports', () => {
-  // let reportId = null;
-  // let candidateId = null;
   let packageSlug = packageId;
 
   describe('# CREATE', () => {
@@ -38,13 +36,7 @@ describe('## Reports', () => {
     };
     // need a valid candidate to create report
     it.skip('should create a new candidate', done => {
-      /* use list rather than create for testing...
-      // checkr.Candidates
-      //   .create(candidateData)
-      //   .then(candidate => { ... } )
-      */
       if( ! candidateId ) {
-console.log("create!");
         console.log("candidateId:",candidateId);
         try {
           // list to use existing candidate for testing...
@@ -71,12 +63,6 @@ console.log("create!");
       }
     });
     it('should create a new report', done => {
-      /* use list rather than create for testing...
-      // checkr.Candidates
-      //   .create(candidateData)
-      //   .then(candidate => { ... } )
-      */
-      // if( candidateId ) {
       checkr.Reports
         .create(packageSlug, candidateId)
         .then(res => {
@@ -95,7 +81,6 @@ console.log("create!");
           // done();
           });
         });
-      // }
     });
   });
   describe('# UPDATE', () => {
