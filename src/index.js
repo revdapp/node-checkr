@@ -14,6 +14,7 @@ import packages from './packages';
 import screenings from './screenings';
 import webhooks from './webhooks';
 import counties from './counties';
+import invitations from './invitations';
 
 class NodeCheckr {
   constructor(API_KEY) {
@@ -29,6 +30,7 @@ class NodeCheckr {
     };
     this.Accounts = accounts(this.options);
     this.Candidates = candidates(this.options);
+    this.Invitations = invitations(this.options);
     this.Reports  = reports(this.options);
     this.Packages = packages(this.options);
     this.Screenings = screenings(this.options);
