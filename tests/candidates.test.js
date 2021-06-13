@@ -3,8 +3,8 @@ import Dotenv from 'dotenv';
 import Checkr from '../src';
 
 const dotenv = Dotenv.config();
-// const key = process.env.API_KEY;
 const key = process.env.CHECKR_API_KEY;
+let candidateId = process.env.CHECKR_CANDIDATE_ID;
 
 const checkr = new Checkr(key);
 
@@ -13,11 +13,10 @@ chai.config.includeStack = true;
 
 describe('## Candidates', () => {
   // let candidateId = null;
-  let candidateId = 'e44aa283528e6fde7d542194';
   let candidateData = {
     first_name: 'Charles',
     last_name: 'Babbage',
-    email: 'charles.babbage@drata.com'
+    email: 'charles.babbage@gmail.com'
   };
 
   describe('# CREATE', () => {
@@ -38,7 +37,7 @@ describe('## Candidates', () => {
             if( err.code === 400 && err.error === 'Slug has already been taken' ) {
               expect(err.code).to.equal(400);
               expect(err.error).to.equal('Slug has already been taken');
-done();
+// done();
             } else {
               if (err) {
                 console.log(err);
@@ -60,8 +59,8 @@ done();
           // 'should change candidate name'
           expect(candidate).to.have.property('id');
           expect(candidate.first_name).to.equal('Chuck');
-          console.log('candidateId:',candidate.id);
           expect(candidate.id).to.equal(candidateId);
+          console.log('candidateId:',candidate.id);
           // console.log('candidate:',candidate);
           done();
         })
@@ -84,12 +83,10 @@ done();
           // 'should list candidates'
           expect(res).to.have.property('data');
           expect(res.data).to.be.an('array')
-          expect(res.data[0]).to.have.property('id');
-          expect(res.data[0]).to.have.property('email');
           res.data.forEach(function(item) {
+            expect(item).to.have.property('id');
+            expect(item).to.have.property('email');
             console.log("id:",item.id,",email:",item.email);
-            // console.log("id:",item.id,",email:",item.email,
-            //   ", name:",item.first_name," ",item.last_name);
             // console.log(item);
           });
           done();
@@ -107,13 +104,12 @@ done();
   });
   describe('# RETRIEVE', () => {
     it('should retrieve an existing candidate', done => {
-      console.log('candidateId:',candidateId);
       checkr.Candidates
         .retrieve( candidateId )
         .then(res => {
           // 'should get specified candidate'
           expect(res).to.have.property('id');
-          expect(res.first_name).to.equal('Chuck');
+          console.log('candidateId:',candidateId);
           // console.log('res:',res);
           done();
         })

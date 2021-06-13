@@ -3,8 +3,9 @@ import Dotenv from 'dotenv';
 import Checkr from '../src';
 
 const dotenv = Dotenv.config();
-// const key = process.env.API_KEY;
 const key = process.env.CHECKR_API_KEY;
+const packageName = 'Driver Pro';
+const packageId = "driver_pro";
 
 const checkr = new Checkr(key);
 
@@ -12,9 +13,9 @@ chai.config.includeStack = true;
 // process.env.SILENT_ERRORS = true; //comment this to view errors
 
 const pckg = {
-  name: 'Motor Vehicle Report',
-  slug: 'mvr_only_1',
-  screenings: [{ type: 'motor_vehicle_report', subtype: null }]
+  name: packageName,
+  slug: packageId,
+  screenings: [{ type: packageName, subtype: null }]
 };
 
 let pckgId = null;
@@ -32,16 +33,15 @@ describe('## Packages', () => {
         .then(res => {
           expect(res).to.have.property('data');
           expect(res.data[0]).to.have.property('id');
-          // console.log(res);
           if ( pckgId === null && res.data[0] ) {
-            pckgId = res.data[0].id;
+            pckgId = res.data.slice(-1)[0].id;
             console.log("packageId:",pckgId);
           }
           res.data.forEach(function(item) {
-            // console.log(item);
             console.log(item.id,",slug:",item.slug);
-            // console.log("id:",item.id,",name:",item.name,",slug:",item.slug);
+            // console.log(item);
           });
+          // console.log(res);
           done();
         })
         .catch(err => {
@@ -54,7 +54,9 @@ describe('## Packages', () => {
     });
   });
   describe('# CREATE', (pckg) => {
-    it('should create a packages', done => {
+    // CREATE is not a valid endpoint
+    // see: https://docs.checkr.com/#tag/Packages
+    it.skip('should create a packages', done => {
       checkr.Packages
         .create(pckg)
         // .retrieve(pckgId) // for testing
@@ -67,7 +69,7 @@ describe('## Packages', () => {
         .catch(err => {
           return new Promise((resolve, reject) => {
             if( err.code === 400 ) {
-              console.log("err:",err);
+              console.log(err);
               expect(err.code).to.equal(400);
               if( err.error === 'Slug has already been taken' ) {
                 expect(err.error).to.equal('Slug has already been taken');
@@ -93,8 +95,7 @@ describe('## Packages', () => {
           expect(res).to.have.property('id');
           expect(res).to.have.property('name');
           expect(res).to.have.property('slug');
-          console.log(res.id,",slug:",res.slug);
-          // console.log("id:",res.id,",name:",res.name,",slug:",res.slug);
+          console.log("id:",res.id,",slug:",res.slug);
           // console.log(res);
           done();
         })
