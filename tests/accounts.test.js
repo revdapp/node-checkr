@@ -58,7 +58,7 @@ describe('## Accounts', () => {
     }
   };
   describe('# CREATE', () => {
-    it('should create an account', done => {
+    it.skip('should create an account', done => {
       // console.log("accountId:",accountId);
       checkr.Accounts
         .create(accountData)
@@ -95,11 +95,43 @@ describe('## Accounts', () => {
           return new Promise((resolve, reject) => {
             if (err) {
               console.log(err);
+              if( err.code === 400 ) {
+                expect(err.code).to.equal(400);
+                expect(err.error).to.equal('Invalid account ID');
+              } else {
+                expect(err).to.be.null;
+              }
+            } else {
+              expect(err).to.be.null;
+              assert.isNotOk(error,'Promise error');
             }
-            expect(err).to.be.null;
-            if( err.code === 400 && err.error === 'Invalid account ID' ) {
-              expect(err.code).to.equal(400);
-              expect(err.error).to.equal('Invalid account ID');
+            // done();
+          });
+        });
+    });
+  });
+  describe('# PING', () => {
+    it('should get an account', done => {
+      checkr.Accounts
+        .ping() // (accountId)
+        .then(res => {
+          expect(res).to.have.property('status');
+          expect(res.data).to.have.property('id');
+          expect(res.data).to.have.property('available_screenings');
+          // console.log("accountId:",res.data.id);
+          accountId = res.id;
+          done();
+        })
+        .catch(err => {
+          return new Promise((resolve, reject) => {
+            if (err) {
+              console.log(err);
+              if( err.code === 400 ) {
+                expect(err.code).to.equal(400);
+                expect(err.error).to.equal('Invalid account ID');
+              } else {
+                expect(err).to.be.null;
+              }
             } else {
               expect(err).to.be.null;
               assert.isNotOk(error,'Promise error');

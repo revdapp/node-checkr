@@ -4,6 +4,7 @@ import Checkr from '../src';
 
 const dotenv = Dotenv.config();
 const key = process.env.CHECKR_API_KEY;
+const webhookUrlDefault = 'https://company.com/v1/webhook';
 
 const checkr = new Checkr(key);
 
@@ -13,13 +14,11 @@ chai.config.includeStack = true;
 describe('## Webhooks', () => {
   let webhookId = null;
   let webhookUrl = webhookUrlDefault;
-  const webhookUrlDefault = 'https://company.com/v1/webhook';
   let webhookData = {
-    webhook_url: 'https://example.com/v1/webhook'
+    webhook_url: webhookUrl
   };
-
   describe('# CREATE', () => {
-    it('should create a webhooks', done => {
+    it.skip('should create a webhooks', done => {
       checkr.Webhooks
         .create(webhookData)
         .then(res => {
@@ -68,8 +67,8 @@ describe('## Webhooks', () => {
             // console.log(hook);
           });
           if ( !webhookId ) {
-            webhookId = webhooks[0].id.trim();
-            webhookUrl = webhooks[0].webhook_url.trim();
+            webhookId = webhooks.slice(-1)[0].id.trim();
+            webhookUrl = webhooks.slice(-1)[0].webhook_url.trim();
           }
           done();
         })
@@ -86,14 +85,12 @@ describe('## Webhooks', () => {
   });
   describe('# GET', (id) => {
     it('should get a webhook', done => {
-      if ( ! id ) {
-        id = webhookId.trim();
+      if ( ! id && webhookId) {
+        id = webhookId;
       }
-      id = id.trim();
-      webhookId = id;
       // console.log("webhookId:",webhookId);
       checkr.Webhooks
-        .get(webhookId)
+        .get(id)
         .then(res => {
           expect(res).to.have.property('id');
           done();
